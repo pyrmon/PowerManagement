@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A0F18EDF-1CDD-4348-836F-5172C8757AC3}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cdk", "cdk", "{7CD202E4-13C0-4085-857A-E3892DF23EAD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DF790AE2-5829-4ED9-AAEF-DB5D659864FF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{EB2F1104-642C-49E6-9993-69D8365190FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerManagement.CDK", "cdk\PowerManagement.CDK\PowerManagement.CDK.csproj", "{827C576F-5205-42C8-9B45-7B6174F82DD0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{827C576F-5205-42C8-9B45-7B6174F82DD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{827C576F-5205-42C8-9B45-7B6174F82DD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{827C576F-5205-42C8-9B45-7B6174F82DD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{827C576F-5205-42C8-9B45-7B6174F82DD0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{827C576F-5205-42C8-9B45-7B6174F82DD0} = {7CD202E4-13C0-4085-857A-E3892DF23EAD}
+	EndGlobalSection
+EndGlobal
