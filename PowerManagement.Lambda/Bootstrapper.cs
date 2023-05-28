@@ -1,4 +1,5 @@
 using PowerManagement.Lambda.Core.Contracts;
+using PowerManagement.Lambda.Core.Handler;
 using PowerManagement.Lambda.Core.Services;
 
 namespace PowerManagement.Lambda;
@@ -23,5 +24,6 @@ public class Bootstrapper
     private static void AddOwnServices(IServiceCollection services)
     {
         services.AddTransient<ILogger, Logger>();
+        services.AddTransient<IRequestHandler, RequestHandler>();
     }
 }
