@@ -3,14 +3,12 @@ using Amazon.CDK.AWS.APIGateway;
 using Amazon.CDK.AWS.EC2;
 using Constructs;
 using PowerManagement.CDK.Builders;
-using Stage = Amazon.CDK.AWS.APIGateway.Stage;
-using StageProps = Amazon.CDK.AWS.APIGateway.StageProps;
 
 namespace PowerManagement.CDK;
 
 public sealed class PowerManagementCdkStack : Stack
 {
-    private const string FunctionName = "PowerManagement-Function";
+    private const string FunctionName = "PowerManagement-Lambda";
     private const string LambdaHandler = "PowerManagement.Lambda::PowerManagement.Lambda.Function::FunctionHandler";
     private const string LambdaZipName = $"PowerManagement.Lambda.zip";
 
@@ -19,8 +17,8 @@ public sealed class PowerManagementCdkStack : Stack
         var lambda = LambdaBuilder.CreateLambda(this, LambdaZipName, FunctionName, LambdaHandler);
         CreateCfnOutput(lambda);
         _ = SsmBuilder.CreateSshConnectionPlanParameter(this, "/ssh/actionPlan");
-        var restApi = ApiGatewayBuilder.CreateRestApi(this, "PowerManagement-Second-Api",
-            "PowerManagement-Function-Api", lambda);
+        var restApi = ApiGatewayBuilder.CreateRestApi(this, "PowerManagement-Api",
+            "PowerManagement-Lambda-Api", lambda);
         CreateCfnOutput(restApi);
     }
 

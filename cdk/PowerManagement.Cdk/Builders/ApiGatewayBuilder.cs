@@ -37,21 +37,21 @@ public static class ApiGatewayBuilder
         });
 
         // Create an API Gateway deployment
-        var deployment = new Deployment(scope, "PowerManagement-Second-Api-Deployment", new DeploymentProps
+        var deployment = new Deployment(scope, "PowerManagement-Api-Deployment", new DeploymentProps
         {
             Api = restApi,
             Description = "Deployment for the PowerManagement REST API"
         });
 
         // Create a stage for the deployment
-        var stage = new Stage(scope, "PowerManagement-Second-Api-Stage", new StageProps
+        var stage = new Stage(scope, "PowerManagement-Api-Stage", new StageProps
         {
             Deployment = deployment,
             StageName = "production"
         });
 
 
-        var usagePlan = new UsagePlan(scope, "PowerManagement-Second-Api-Usage-Plan", new UsagePlanProps
+        var usagePlan = new UsagePlan(scope, "PowerManagement-Api-Usage-Plan", new UsagePlanProps
         {
             Name = "PowerManagement-Second-Api-Usage-Plan",
             ApiStages = new IUsagePlanPerApiStage[]

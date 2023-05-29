@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Create SSM Parameter
         run: |
-          aws ssm put-parameter --name "/lambda/ssh/id" --value "${{ secrets.ID_RSA }}" --type SecureString
+          aws ssm put-parameter --name "/lambda/ssh/id" --value "${{ secrets.ID_RSA }}" --type SecureString --overwrite
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
