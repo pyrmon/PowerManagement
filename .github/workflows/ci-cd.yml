@@ -10,25 +10,26 @@ on:
       - main
 
 jobs:
-#  build:
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checkout repository
-#        uses: actions/checkout@v2
-#
-#      - name: Setup .NET
-#        uses: actions/setup-dotnet@v1
-#        with:
-#          dotnet-version: '6.0.x'
-#
-#      - name: Restore dependencies
-#        run: dotnet restore PowerManagement.sln --source https://api.nuget.org/v3/index.json
-#
-#      - name: Run unit tests
-#        run: dotnet test PowerManagement.sln -c Release --no-build --filter "TestCategory!=local&TestCategory!=integration&Category!=integration"
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore PowerManagement.sln --source https://api.nuget.org/v3/index.json
+
+      - name: Run unit tests and calculate coverage
+        run: dotnet test PowerManagement.sln -c Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
