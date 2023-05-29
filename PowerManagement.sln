@@ -4,6 +4,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 		.gitignore = .gitignore
+		.github\workflows\ci-cd.yml = .github\workflows\ci-cd.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cdk", "cdk", "{7CD202E4-13C0-4085-857A-E3892DF23EAD}"
@@ -19,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerManagement.Lambda.Core", "PowerManagement.Lambda.Core\PowerManagement.Lambda.Core.csproj", "{91ABFBCD-4BD3-4495-8F72-5102BE5CCC6A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerManagement.Lambda.Tests", "PowerManagement.Lambda.Tests\PowerManagement.Lambda.Tests.csproj", "{2A4C6036-476E-4BE5-8A1B-B5694A9CA4ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerManagement.Lambda.Core.Tests", "PowerManagement.Lambda.Core.Tests\PowerManagement.Lambda.Core.Tests.csproj", "{E2B1A88B-F5B8-4888-8F9E-4A4CEFDDC559}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,11 +45,16 @@ Global
 		{2A4C6036-476E-4BE5-8A1B-B5694A9CA4ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A4C6036-476E-4BE5-8A1B-B5694A9CA4ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A4C6036-476E-4BE5-8A1B-B5694A9CA4ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2B1A88B-F5B8-4888-8F9E-4A4CEFDDC559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2B1A88B-F5B8-4888-8F9E-4A4CEFDDC559}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2B1A88B-F5B8-4888-8F9E-4A4CEFDDC559}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2B1A88B-F5B8-4888-8F9E-4A4CEFDDC559}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{827C576F-5205-42C8-9B45-7B6174F82DD0} = {7CD202E4-13C0-4085-857A-E3892DF23EAD}
 		{B554D5ED-71C0-47DB-AF21-B54766DEEA9C} = {DF790AE2-5829-4ED9-AAEF-DB5D659864FF}
 		{91ABFBCD-4BD3-4495-8F72-5102BE5CCC6A} = {DF790AE2-5829-4ED9-AAEF-DB5D659864FF}
 		{2A4C6036-476E-4BE5-8A1B-B5694A9CA4ED} = {EB2F1104-642C-49E6-9993-69D8365190FB}
+		{E2B1A88B-F5B8-4888-8F9E-4A4CEFDDC559} = {EB2F1104-642C-49E6-9993-69D8365190FB}
 	EndGlobalSection
 EndGlobal
