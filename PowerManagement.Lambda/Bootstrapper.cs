@@ -17,7 +17,7 @@ public class Bootstrapper
 
     public static IServiceCollection Container => ConfigureServices();
 
-    public static IServiceCollection ConfigureServices()
+    private static IServiceCollection ConfigureServices()
     {
         var services = new ServiceCollection();
 
