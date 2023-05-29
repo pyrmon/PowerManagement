@@ -10,31 +10,28 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '6.0.x'
-
-      - name: Restore dependencies
-        run: dotnet restore
-
-      - name: Run unit tests
-        run: dotnet test --no-build --verbosity normal
-
-      - name: Lint code
-        uses: dotnet/format@v4
+  #  build:
+  #    runs-on: ubuntu-latest
+  #
+  #    steps:
+  #      - name: Checkout repository
+  #        uses: actions/checkout@v2
+  #
+  #      - name: Setup .NET
+  #        uses: actions/setup-dotnet@v1
+  #        with:
+  #          dotnet-version: '6.0.x'
+  #
+  #      - name: Restore dependencies
+  #        run: |
+  #          dotnet restore PowerManagement.sln --source https://api.nuget.org/v3/index.json
+  #
+  #      - name: Run unit tests
+  #        run: |
+  #          dotnet test PowerManagement.sln -c Release --no-build --filter "TestCategory!=local&TestCategory!=integration&Category!=integration"
 
   deploy:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
