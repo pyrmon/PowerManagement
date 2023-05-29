@@ -1,5 +1,5 @@
 {
-  "app": "dotnet run --project PowerManagement.CDK/PowerManagement.CDK.csproj",
+  "app": "dotnet run --project PowerManagement.Cdk/PowerManagement.Cdk.csproj",
   "watch": {
     "include": [
       "**"

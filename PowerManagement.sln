@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DF790AE2-582
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{EB2F1104-642C-49E6-9993-69D8365190FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerManagement.CDK", "cdk\PowerManagement.CDK\PowerManagement.CDK.csproj", "{827C576F-5205-42C8-9B45-7B6174F82DD0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerManagement.CDK", "cdk\PowerManagement.Cdk\PowerManagement.Cdk.csproj", "{827C576F-5205-42C8-9B45-7B6174F82DD0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerManagement.Lambda", "PowerManagement.Lambda\PowerManagement.Lambda.csproj", "{B554D5ED-71C0-47DB-AF21-B54766DEEA9C}"
 EndProject
