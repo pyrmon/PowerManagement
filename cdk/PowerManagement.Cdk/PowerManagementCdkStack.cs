@@ -1,6 +1,9 @@
 using Amazon.CDK;
 using Amazon.CDK.AWS.APIGateway;
 using Amazon.CDK.AWS.EC2;
+using Amazon.CDK.AWS.Events.Targets;
+using Amazon.CDK.AWS.IAM;
+using Amazon.CDK.AWS.Lambda;
 using Constructs;
 using PowerManagement.CDK.Builders;
 
@@ -16,6 +19,16 @@ public sealed class PowerManagementCdkStack : Stack
     {
         var lambda = LambdaBuilder.CreateLambda(this, LambdaZipName, FunctionName, LambdaHandler);
         CreateCfnOutput(lambda);
+
+        var rule = EventBridgeBuilder.CreateNewEventRule(this);
+        rule.AddTarget(new LambdaFunction(lambda, LambdaBuilder.GetFunctionPropsForEvent()));
+
+        lambda.AddPermission("EventRulePermission", new Permission
+        {
+            Principal = new ServicePrincipal("events.amazonaws.com"),
+            SourceArn = rule.RuleArn
+        });
+
         var restApi = ApiGatewayBuilder.CreateRestApi(this, "PowerManagement-Api",
             "PowerManagement-Lambda-Api", lambda);
         CreateCfnOutput(restApi);

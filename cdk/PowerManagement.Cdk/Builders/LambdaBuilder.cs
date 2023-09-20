@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Amazon.CDK;
+using Amazon.CDK.AWS.Events;
+using Amazon.CDK.AWS.Events.Targets;
 using Amazon.CDK.AWS.IAM;
 using Amazon.CDK.AWS.Lambda;
 using Amazon.CDK.AWS.Logs;
@@ -29,6 +31,16 @@ public static class LambdaBuilder
             Architecture = Architecture.X86_64,
             Tracing = Tracing.ACTIVE
         });
+    }
+
+    public static LambdaFunctionProps GetFunctionPropsForEvent()
+    {
+        const string jsonPayload =
+            "{ \"version\": \"2.0\", \"http\": { \"method\": \"POST\", \"path\": \"/power\" }, \"body\": \"{\\\"request\\\":\\\"bitwarden_backup\\\"}\" }";
+        return new LambdaFunctionProps
+        {
+            Event = RuleTargetInput.FromText(jsonPayload)
+        };
     }
 
     private static Role CreateLambdaRole(Construct scope, string functionName)
