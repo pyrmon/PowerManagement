@@ -1,0 +1,940 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "PowerManagementCdkStack": {
+        "id": "PowerManagementCdkStack",
+        "path": "PowerManagementCdkStack",
+        "children": {
+          "PowerManagement-Function-Role": {
+            "id": "PowerManagement-Function-Role",
+            "path": "PowerManagementCdkStack/PowerManagement-Function-Role",
+            "children": {
+              "ImportPowerManagement-Function-Role": {
+                "id": "ImportPowerManagement-Function-Role",
+                "path": "PowerManagementCdkStack/PowerManagement-Function-Role/ImportPowerManagement-Function-Role",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.81.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "PowerManagementCdkStack/PowerManagement-Function-Role/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                  "aws:cdk:cloudformation:props": {
+                    "assumeRolePolicyDocument": {
+                      "Statement": [
+                        {
+                          "Action": "sts:AssumeRole",
+                          "Effect": "Allow",
+                          "Principal": {
+                            "Service": "lambda.amazonaws.com"
+                          }
+                        }
+                      ],
+                      "Version": "2012-10-17"
+                    },
+                    "managedPolicyArns": [
+                      {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":iam::aws:policy/AWSLambdaExecute"
+                          ]
+                        ]
+                      }
+                    ],
+                    "policies": [
+                      {
+                        "policyName": "PowerManagement-Function-Policy",
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": [
+                                "kms:DecryptKey",
+                                "lambda:InvokeFunction",
+                                "logs:CreateLogGroup",
+                                "logs:CreateLogStream",
+                                "logs:PutLogEvents",
+                                "ssm:GetParameter",
+                                "ssm:GetParametersByPath"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": "*"
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    ],
+                    "roleName": "PowerManagement-Function-ServiceRole"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                  "version": "2.81.0"
+                }
+              },
+              "DefaultPolicy": {
+                "id": "DefaultPolicy",
+                "path": "PowerManagementCdkStack/PowerManagement-Function-Role/DefaultPolicy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "PowerManagementCdkStack/PowerManagement-Function-Role/DefaultPolicy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": [
+                                "xray:PutTelemetryRecords",
+                                "xray:PutTraceSegments"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": "*"
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "policyName": "PowerManagementFunctionRoleDefaultPolicy8B44BC42",
+                        "roles": [
+                          {
+                            "Ref": "PowerManagementFunctionRoleCAAA1089"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                      "version": "2.81.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Policy",
+                  "version": "2.81.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_iam.Role",
+              "version": "2.81.0"
+            }
+          },
+          "PowerManagement-Function": {
+            "id": "PowerManagement-Function",
+            "path": "PowerManagementCdkStack/PowerManagement-Function",
+            "children": {
+              "Code": {
+                "id": "Code",
+                "path": "PowerManagementCdkStack/PowerManagement-Function/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "PowerManagementCdkStack/PowerManagement-Function/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.81.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "PowerManagementCdkStack/PowerManagement-Function/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.81.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.81.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "PowerManagementCdkStack/PowerManagement-Function/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+                      },
+                      "s3Key": "3f502bd0dd682dc6799ecff2b1e6523fe074863bdfeb4b0afa7e671692e4c639.zip"
+                    },
+                    "role": {
+                      "Fn::GetAtt": [
+                        "PowerManagementFunctionRoleCAAA1089",
+                        "Arn"
+                      ]
+                    },
+                    "architectures": [
+                      "x86_64"
+                    ],
+                    "functionName": "PowerManagement-Function",
+                    "handler": "PowerManagement.Lambda::PowerManagement.Lambda.Function::FunctionHandler",
+                    "memorySize": 128,
+                    "runtime": "dotnet6",
+                    "timeout": 180,
+                    "tracingConfig": {
+                      "mode": "Active"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.81.0"
+                }
+              },
+              "LogRetention": {
+                "id": "LogRetention",
+                "path": "PowerManagementCdkStack/PowerManagement-Function/LogRetention",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "PowerManagementCdkStack/PowerManagement-Function/LogRetention/Resource",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnResource",
+                      "version": "2.81.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_logs.LogRetention",
+                  "version": "2.81.0"
+                }
+              },
+              "LogGroup": {
+                "id": "LogGroup",
+                "path": "PowerManagementCdkStack/PowerManagement-Function/LogGroup",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.81.0"
+                }
+              },
+              "InvokeFcyXBRX02EWa52GlF+ECQiCzDt0fdRUDi4mo4foC5aU=": {
+                "id": "InvokeFcyXBRX02EWa52GlF+ECQiCzDt0fdRUDi4mo4foC5aU=",
+                "path": "PowerManagementCdkStack/PowerManagement-Function/InvokeFcyXBRX02EWa52GlF+ECQiCzDt0fdRUDi4mo4foC5aU=",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                  "aws:cdk:cloudformation:props": {
+                    "action": "lambda:InvokeFunction",
+                    "functionName": {
+                      "Fn::GetAtt": [
+                        "PowerManagementFunctionBC05160B",
+                        "Arn"
+                      ]
+                    },
+                    "principal": "apigateway.amazonaws.com"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                  "version": "2.81.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.Function",
+              "version": "2.81.0"
+            }
+          },
+          "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a": {
+            "id": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a",
+            "path": "PowerManagementCdkStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a",
+            "children": {
+              "Code": {
+                "id": "Code",
+                "path": "PowerManagementCdkStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "PowerManagementCdkStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.81.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "PowerManagementCdkStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.81.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.81.0"
+                }
+              },
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "PowerManagementCdkStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole",
+                "children": {
+                  "ImportServiceRole": {
+                    "id": "ImportServiceRole",
+                    "path": "PowerManagementCdkStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/ImportServiceRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.81.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "PowerManagementCdkStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.81.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "PowerManagementCdkStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "PowerManagementCdkStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "logs:DeleteRetentionPolicy",
+                                    "logs:PutRetentionPolicy"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+                            "roles": [
+                              {
+                                "Ref": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.81.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.81.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.81.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "PowerManagementCdkStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.81.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.0.0"
+            }
+          },
+          "ApiMiddlewareLambdaUserArn": {
+            "id": "ApiMiddlewareLambdaUserArn",
+            "path": "PowerManagementCdkStack/ApiMiddlewareLambdaUserArn",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.81.0"
+            }
+          },
+          "SshActionPlan": {
+            "id": "SshActionPlan",
+            "path": "PowerManagementCdkStack/SshActionPlan",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.81.0"
+            }
+          },
+          "--ssh--actionPlan": {
+            "id": "--ssh--actionPlan",
+            "path": "PowerManagementCdkStack/--ssh--actionPlan",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "PowerManagementCdkStack/--ssh--actionPlan/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::SSM::Parameter",
+                  "aws:cdk:cloudformation:props": {
+                    "type": "String",
+                    "value": {
+                      "Ref": "SshActionPlan"
+                    },
+                    "name": "/ssh/actionPlan"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ssm.CfnParameter",
+                  "version": "2.81.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ssm.StringParameter",
+              "version": "2.81.0"
+            }
+          },
+          "PowerManagement-Second-Api": {
+            "id": "PowerManagement-Second-Api",
+            "path": "PowerManagementCdkStack/PowerManagement-Second-Api",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "PowerManagementCdkStack/PowerManagement-Second-Api/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::RestApi",
+                  "aws:cdk:cloudformation:props": {
+                    "endpointConfiguration": {
+                      "types": [
+                        "REGIONAL"
+                      ]
+                    },
+                    "name": "PowerManagement-Function-Api"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.CfnRestApi",
+                  "version": "2.81.0"
+                }
+              },
+              "Deployment": {
+                "id": "Deployment",
+                "path": "PowerManagementCdkStack/PowerManagement-Second-Api/Deployment",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "PowerManagementCdkStack/PowerManagement-Second-Api/Deployment/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ApiGateway::Deployment",
+                      "aws:cdk:cloudformation:props": {
+                        "restApiId": {
+                          "Ref": "PowerManagementSecondApi099AA237"
+                        },
+                        "description": "Automatically created by the RestApi construct"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.CfnDeployment",
+                      "version": "2.81.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.Deployment",
+                  "version": "2.81.0"
+                }
+              },
+              "DeploymentStage.prod": {
+                "id": "DeploymentStage.prod",
+                "path": "PowerManagementCdkStack/PowerManagement-Second-Api/DeploymentStage.prod",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "PowerManagementCdkStack/PowerManagement-Second-Api/DeploymentStage.prod/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::ApiGateway::Stage",
+                      "aws:cdk:cloudformation:props": {
+                        "restApiId": {
+                          "Ref": "PowerManagementSecondApi099AA237"
+                        },
+                        "deploymentId": {
+                          "Ref": "PowerManagementSecondApiDeployment0DE6D7ED7bb4bd5e8d5718665f2ad90a7d3dde96"
+                        },
+                        "stageName": "prod"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.CfnStage",
+                      "version": "2.81.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.Stage",
+                  "version": "2.81.0"
+                }
+              },
+              "Endpoint": {
+                "id": "Endpoint",
+                "path": "PowerManagementCdkStack/PowerManagement-Second-Api/Endpoint",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnOutput",
+                  "version": "2.81.0"
+                }
+              },
+              "Default": {
+                "id": "Default",
+                "path": "PowerManagementCdkStack/PowerManagement-Second-Api/Default",
+                "children": {
+                  "{proxy+}": {
+                    "id": "{proxy+}",
+                    "path": "PowerManagementCdkStack/PowerManagement-Second-Api/Default/{proxy+}",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "PowerManagementCdkStack/PowerManagement-Second-Api/Default/{proxy+}/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ApiGateway::Resource",
+                          "aws:cdk:cloudformation:props": {
+                            "parentId": {
+                              "Fn::GetAtt": [
+                                "PowerManagementSecondApi099AA237",
+                                "RootResourceId"
+                              ]
+                            },
+                            "pathPart": "{proxy+}",
+                            "restApiId": {
+                              "Ref": "PowerManagementSecondApi099AA237"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.CfnResource",
+                          "version": "2.81.0"
+                        }
+                      },
+                      "ANY": {
+                        "id": "ANY",
+                        "path": "PowerManagementCdkStack/PowerManagement-Second-Api/Default/{proxy+}/ANY",
+                        "children": {
+                          "ApiPermission.PowerManagementCdkStackPowerManagementSecondApiAC3AFC3D.ANY..{proxy+}": {
+                            "id": "ApiPermission.PowerManagementCdkStackPowerManagementSecondApiAC3AFC3D.ANY..{proxy+}",
+                            "path": "PowerManagementCdkStack/PowerManagement-Second-Api/Default/{proxy+}/ANY/ApiPermission.PowerManagementCdkStackPowerManagementSecondApiAC3AFC3D.ANY..{proxy+}",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::GetAtt": [
+                                    "PowerManagementFunctionBC05160B",
+                                    "Arn"
+                                  ]
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":execute-api:",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "PowerManagementSecondApi099AA237"
+                                      },
+                                      "/",
+                                      {
+                                        "Ref": "PowerManagementSecondApiDeploymentStageprodD44714C1"
+                                      },
+                                      "/*/*"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.81.0"
+                            }
+                          },
+                          "ApiPermission.Test.PowerManagementCdkStackPowerManagementSecondApiAC3AFC3D.ANY..{proxy+}": {
+                            "id": "ApiPermission.Test.PowerManagementCdkStackPowerManagementSecondApiAC3AFC3D.ANY..{proxy+}",
+                            "path": "PowerManagementCdkStack/PowerManagement-Second-Api/Default/{proxy+}/ANY/ApiPermission.Test.PowerManagementCdkStackPowerManagementSecondApiAC3AFC3D.ANY..{proxy+}",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                              "aws:cdk:cloudformation:props": {
+                                "action": "lambda:InvokeFunction",
+                                "functionName": {
+                                  "Fn::GetAtt": [
+                                    "PowerManagementFunctionBC05160B",
+                                    "Arn"
+                                  ]
+                                },
+                                "principal": "apigateway.amazonaws.com",
+                                "sourceArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":execute-api:",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "PowerManagementSecondApi099AA237"
+                                      },
+                                      "/test-invoke-stage/*/*"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                              "version": "2.81.0"
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "PowerManagementCdkStack/PowerManagement-Second-Api/Default/{proxy+}/ANY/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
+                              "aws:cdk:cloudformation:props": {
+                                "httpMethod": "ANY",
+                                "resourceId": {
+                                  "Ref": "PowerManagementSecondApiproxyC6F378A0"
+                                },
+                                "restApiId": {
+                                  "Ref": "PowerManagementSecondApi099AA237"
+                                },
+                                "apiKeyRequired": true,
+                                "authorizationType": "NONE",
+                                "integration": {
+                                  "type": "AWS_PROXY",
+                                  "uri": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":apigateway:",
+                                        {
+                                          "Ref": "AWS::Region"
+                                        },
+                                        ":lambda:path/2015-03-31/functions/",
+                                        {
+                                          "Fn::GetAtt": [
+                                            "PowerManagementFunctionBC05160B",
+                                            "Arn"
+                                          ]
+                                        },
+                                        "/invocations"
+                                      ]
+                                    ]
+                                  },
+                                  "integrationHttpMethod": "POST"
+                                },
+                                "requestParameters": {
+                                  "method.request.path.proxy": true
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_apigateway.CfnMethod",
+                              "version": "2.81.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigateway.Method",
+                          "version": "2.81.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigateway.Resource",
+                      "version": "2.81.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.ResourceBase",
+                  "version": "2.81.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_apigateway.RestApi",
+              "version": "2.81.0"
+            }
+          },
+          "PowerManagementApiKey": {
+            "id": "PowerManagementApiKey",
+            "path": "PowerManagementCdkStack/PowerManagementApiKey",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "PowerManagementCdkStack/PowerManagementApiKey/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::ApiKey",
+                  "aws:cdk:cloudformation:props": {
+                    "enabled": true,
+                    "name": "PowerManagement-Second-Api-Key"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.CfnApiKey",
+                  "version": "2.81.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_apigateway.ApiKey",
+              "version": "2.81.0"
+            }
+          },
+          "PowerManagement-Second-Api-Deployment": {
+            "id": "PowerManagement-Second-Api-Deployment",
+            "path": "PowerManagementCdkStack/PowerManagement-Second-Api-Deployment",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "PowerManagementCdkStack/PowerManagement-Second-Api-Deployment/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::Deployment",
+                  "aws:cdk:cloudformation:props": {
+                    "restApiId": {
+                      "Ref": "PowerManagementSecondApi099AA237"
+                    },
+                    "description": "Deployment for the PowerManagement REST API"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.CfnDeployment",
+                  "version": "2.81.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_apigateway.Deployment",
+              "version": "2.81.0"
+            }
+          },
+          "PowerManagement-Second-Api-Stage": {
+            "id": "PowerManagement-Second-Api-Stage",
+            "path": "PowerManagementCdkStack/PowerManagement-Second-Api-Stage",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "PowerManagementCdkStack/PowerManagement-Second-Api-Stage/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::Stage",
+                  "aws:cdk:cloudformation:props": {
+                    "restApiId": {
+                      "Ref": "PowerManagementSecondApi099AA237"
+                    },
+                    "deploymentId": {
+                      "Ref": "PowerManagementSecondApiDeploymentA055D415b7f915f8efe120eaf20bfdff47716e0d"
+                    },
+                    "stageName": "production"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.CfnStage",
+                  "version": "2.81.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_apigateway.Stage",
+              "version": "2.81.0"
+            }
+          },
+          "PowerManagement-Second-Api-Usage-Plan": {
+            "id": "PowerManagement-Second-Api-Usage-Plan",
+            "path": "PowerManagementCdkStack/PowerManagement-Second-Api-Usage-Plan",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "PowerManagementCdkStack/PowerManagement-Second-Api-Usage-Plan/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::UsagePlan",
+                  "aws:cdk:cloudformation:props": {
+                    "apiStages": [
+                      {
+                        "apiId": {
+                          "Ref": "PowerManagementSecondApi099AA237"
+                        },
+                        "stage": {
+                          "Ref": "PowerManagementSecondApiStage88F17782"
+                        },
+                        "throttle": {}
+                      }
+                    ],
+                    "usagePlanName": "PowerManagement-Second-Api-Usage-Plan"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.CfnUsagePlan",
+                  "version": "2.81.0"
+                }
+              },
+              "UsagePlanKeyResource:PowerManagementCdkStackPowerManagementApiKey13A9211C": {
+                "id": "UsagePlanKeyResource:PowerManagementCdkStackPowerManagementApiKey13A9211C",
+                "path": "PowerManagementCdkStack/PowerManagement-Second-Api-Usage-Plan/UsagePlanKeyResource:PowerManagementCdkStackPowerManagementApiKey13A9211C",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::UsagePlanKey",
+                  "aws:cdk:cloudformation:props": {
+                    "keyId": {
+                      "Ref": "PowerManagementApiKey971FB40E"
+                    },
+                    "keyType": "API_KEY",
+                    "usagePlanId": {
+                      "Ref": "PowerManagementSecondApiUsagePlan32DC706C"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.CfnUsagePlanKey",
+                  "version": "2.81.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_apigateway.UsagePlan",
+              "version": "2.81.0"
+            }
+          },
+          "ApiGatewayRestApiId": {
+            "id": "ApiGatewayRestApiId",
+            "path": "PowerManagementCdkStack/ApiGatewayRestApiId",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.81.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "PowerManagementCdkStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "PowerManagementCdkStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.81.0"
+                }
+              },
+              "Condition": {
+                "id": "Condition",
+                "path": "PowerManagementCdkStack/CDKMetadata/Condition",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnCondition",
+                  "version": "2.81.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.0.0"
+            }
+          },
+          "BootstrapVersion": {
+            "id": "BootstrapVersion",
+            "path": "PowerManagementCdkStack/BootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.81.0"
+            }
+          },
+          "CheckBootstrapVersion": {
+            "id": "CheckBootstrapVersion",
+            "path": "PowerManagementCdkStack/CheckBootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnRule",
+              "version": "2.81.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.81.0"
+        }
+      },
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.0.0"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.81.0"
+    }
+  }
+}

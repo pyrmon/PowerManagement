@@ -19,14 +19,6 @@ public sealed class PowerManagementCdkStack : Stack
     {
         var lambda = LambdaBuilder.CreateLambda(this, LambdaZipName, FunctionName, LambdaHandler);
         CreateCfnOutput(lambda);
-        var scheduler = EventBridgeBuilder.CreateEventSchedule(this);
-        var rule = EventBridgeBuilder.CreateNewEventRule(this, scheduler.LogicalId, lambda);
-
-        lambda.AddPermission("EventRulePermission", new Permission
-        {
-            Principal = new ServicePrincipal("events.amazonaws.com"),
-            SourceArn = rule.RuleArn
-        });
 
         var restApi = ApiGatewayBuilder.CreateRestApi(this, "PowerManagement-Api",
             "PowerManagement-Lambda-Api", lambda);

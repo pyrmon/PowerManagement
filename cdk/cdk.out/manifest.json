@@ -1,0 +1,220 @@
+{
+  "version": "32.0.0",
+  "artifacts": {
+    "PowerManagementCdkStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "PowerManagementCdkStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "PowerManagementCdkStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "PowerManagementCdkStack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/6bf1be649fac437c49972e73ae3978d03ce3f96b608e20a038a1333c3f7f820e.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "PowerManagementCdkStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "PowerManagementCdkStack.assets"
+      ],
+      "metadata": {
+        "/PowerManagementCdkStack/PowerManagement-Function-Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PowerManagementFunctionRoleCAAA1089"
+          }
+        ],
+        "/PowerManagementCdkStack/PowerManagement-Function-Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PowerManagementFunctionRoleDefaultPolicy8B44BC42"
+          }
+        ],
+        "/PowerManagementCdkStack/PowerManagement-Function/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PowerManagementFunctionBC05160B"
+          }
+        ],
+        "/PowerManagementCdkStack/PowerManagement-Function/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PowerManagementFunctionLogRetention9D799636"
+          }
+        ],
+        "/PowerManagementCdkStack/PowerManagement-Function/InvokeFcyXBRX02EWa52GlF+ECQiCzDt0fdRUDi4mo4foC5aU=": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PowerManagementFunctionInvokeFcyXBRX02EWa52GlFECQiCzDt0fdRUDi4mo4foC5aU7D36A71B"
+          }
+        ],
+        "/PowerManagementCdkStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+          }
+        ],
+        "/PowerManagementCdkStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB"
+          }
+        ],
+        "/PowerManagementCdkStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A"
+          }
+        ],
+        "/PowerManagementCdkStack/ApiMiddlewareLambdaUserArn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiMiddlewareLambdaUserArn"
+          }
+        ],
+        "/PowerManagementCdkStack/SshActionPlan": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SshActionPlan"
+          }
+        ],
+        "/PowerManagementCdkStack/--ssh--actionPlan/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "sshactionPlan2BEAED6F"
+          }
+        ],
+        "/PowerManagementCdkStack/PowerManagement-Second-Api/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PowerManagementSecondApi099AA237"
+          }
+        ],
+        "/PowerManagementCdkStack/PowerManagement-Second-Api/Deployment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PowerManagementSecondApiDeployment0DE6D7ED7bb4bd5e8d5718665f2ad90a7d3dde96"
+          }
+        ],
+        "/PowerManagementCdkStack/PowerManagement-Second-Api/DeploymentStage.prod/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PowerManagementSecondApiDeploymentStageprodD44714C1"
+          }
+        ],
+        "/PowerManagementCdkStack/PowerManagement-Second-Api/Endpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PowerManagementSecondApiEndpointBBAD42F8"
+          }
+        ],
+        "/PowerManagementCdkStack/PowerManagement-Second-Api/Default/{proxy+}/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PowerManagementSecondApiproxyC6F378A0"
+          }
+        ],
+        "/PowerManagementCdkStack/PowerManagement-Second-Api/Default/{proxy+}/ANY/ApiPermission.PowerManagementCdkStackPowerManagementSecondApiAC3AFC3D.ANY..{proxy+}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PowerManagementSecondApiproxyANYApiPermissionPowerManagementCdkStackPowerManagementSecondApiAC3AFC3DANYproxy6B4E0334"
+          }
+        ],
+        "/PowerManagementCdkStack/PowerManagement-Second-Api/Default/{proxy+}/ANY/ApiPermission.Test.PowerManagementCdkStackPowerManagementSecondApiAC3AFC3D.ANY..{proxy+}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PowerManagementSecondApiproxyANYApiPermissionTestPowerManagementCdkStackPowerManagementSecondApiAC3AFC3DANYproxyB1AF6C5D"
+          }
+        ],
+        "/PowerManagementCdkStack/PowerManagement-Second-Api/Default/{proxy+}/ANY/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PowerManagementSecondApiproxyANY2CE180B2"
+          }
+        ],
+        "/PowerManagementCdkStack/PowerManagementApiKey/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PowerManagementApiKey971FB40E"
+          }
+        ],
+        "/PowerManagementCdkStack/PowerManagement-Second-Api-Deployment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PowerManagementSecondApiDeploymentA055D415b7f915f8efe120eaf20bfdff47716e0d"
+          }
+        ],
+        "/PowerManagementCdkStack/PowerManagement-Second-Api-Stage/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PowerManagementSecondApiStage88F17782"
+          }
+        ],
+        "/PowerManagementCdkStack/PowerManagement-Second-Api-Usage-Plan/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PowerManagementSecondApiUsagePlan32DC706C"
+          }
+        ],
+        "/PowerManagementCdkStack/PowerManagement-Second-Api-Usage-Plan/UsagePlanKeyResource:PowerManagementCdkStackPowerManagementApiKey13A9211C": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PowerManagementSecondApiUsagePlanUsagePlanKeyResourcePowerManagementCdkStackPowerManagementApiKey13A9211CCDDA6A21"
+          }
+        ],
+        "/PowerManagementCdkStack/ApiGatewayRestApiId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiGatewayRestApiId"
+          }
+        ],
+        "/PowerManagementCdkStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/PowerManagementCdkStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/PowerManagementCdkStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/PowerManagementCdkStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "PowerManagementCdkStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
