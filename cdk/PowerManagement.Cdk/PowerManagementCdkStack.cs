@@ -10,13 +10,12 @@ public sealed class PowerManagementCdkStack : Stack
 {
     private const string FunctionName = "PowerManagement-Lambda";
     private const string LambdaHandler = "PowerManagement.Lambda::PowerManagement.Lambda.Function::FunctionHandler";
-    private const string LambdaZipName = $"PowerManagement.Lambda.zip";
+    private const string LambdaZipName = "PowerManagement.Lambda.zip";
 
     public PowerManagementCdkStack(Construct scope, string id, IStackProps props = null) : base(scope, id, props)
     {
         var lambda = LambdaBuilder.CreateLambda(this, LambdaZipName, FunctionName, LambdaHandler);
         CreateCfnOutput(lambda);
-        _ = SsmBuilder.CreateSshConnectionPlanParameter(this, "/ssh/actionPlan");
         var restApi = ApiGatewayBuilder.CreateRestApi(this, "PowerManagement-Api",
             "PowerManagement-Lambda-Api", lambda);
         CreateCfnOutput(restApi);

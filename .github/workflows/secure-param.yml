@@ -1,0 +1,25 @@
+name: Create Secure Params
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-parameter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create secure id Parameter
+        run: |
+          aws ssm put-parameter --name "/lambda/ssh/id" --value "${{ secrets.ID_RSA }}" --type SecureString --overwrite
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Create actionPlan
+        run: |
+          aws ssm put-parameter --name "/ssh/actionPlan" --value "${{ secrets.SSH_ACTION_PLAN }}" --type SecureString --overwrite
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}

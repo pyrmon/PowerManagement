@@ -57,7 +57,7 @@ public class RequestHandlerTests
     }
 
     [Fact]
-    public void Handle_WhenActionPlanReceivedIsInvalid_ShoulThrowJsonException()
+    public void Handle_WhenActionPlanReceivedIsInvalid_ShouldThrowJsonException()
     {
         // Arrange
         var actionPlan = "{\"error\":\"invalid_object\"}";

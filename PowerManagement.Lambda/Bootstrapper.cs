@@ -50,7 +50,8 @@ public class Bootstrapper
     {
         var response = ssmClient.GetParameterAsync(new GetParameterRequest
         {
-            Name = "/ssh/actionPlan"
+            Name = "/ssh/actionPlan",
+            WithDecryption = true
         }).GetAwaiter().GetResult();
         return response.Parameter.Value;
     }
