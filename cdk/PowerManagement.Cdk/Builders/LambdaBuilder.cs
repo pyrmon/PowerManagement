@@ -33,16 +33,6 @@ public static class LambdaBuilder
         });
     }
 
-    public static LambdaFunctionProps GetFunctionPropsForEvent()
-    {
-        const string jsonPayload =
-            "{ \"version\": \"2.0\", \"http\": { \"method\": \"POST\", \"path\": \"/power\" }, \"body\": \"{\\\"request\\\":\\\"bitwarden_backup\\\"}\" }";
-        return new LambdaFunctionProps
-        {
-            Event = RuleTargetInput.FromText(jsonPayload)
-        };
-    }
-
     private static Role CreateLambdaRole(Construct scope, string functionName)
     {
         return new Role(scope, $"{functionName}-Role", new RoleProps

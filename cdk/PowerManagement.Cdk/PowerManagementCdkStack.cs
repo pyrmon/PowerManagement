@@ -19,9 +19,8 @@ public sealed class PowerManagementCdkStack : Stack
     {
         var lambda = LambdaBuilder.CreateLambda(this, LambdaZipName, FunctionName, LambdaHandler);
         CreateCfnOutput(lambda);
-
-        var rule = EventBridgeBuilder.CreateNewEventRule(this);
-        rule.AddTarget(new LambdaFunction(lambda, LambdaBuilder.GetFunctionPropsForEvent()));
+        var scheduler = EventBridgeBuilder.CreateEventSchedule(this);
+        var rule = EventBridgeBuilder.CreateNewEventRule(this, scheduler.LogicalId, lambda);
 
         lambda.AddPermission("EventRulePermission", new Permission
         {
