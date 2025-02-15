@@ -17,7 +17,15 @@ public sealed class PowerManagementCdkStack : Stack
 
     public PowerManagementCdkStack(Construct scope, string id, IStackProps props = null) : base(scope, id, props)
     {
-        var lambda = LambdaBuilder.CreateLambda(this, LambdaZipName, FunctionName, LambdaHandler);
+        var lambda = LambdaBuilder.CreateLambda(this, LambdaZipName, FunctionName, LambdaHandler)
+                                  .AddEnvironment("AWS_LAMBDA_INITIALIZATION_TYPE", "snap-start");
+        var cfnLambda = (CfnFunction)lambda.Node.DefaultChild;
+        cfnLambda.SnapStart = new CfnFunction.SnapStartProperty
+        {
+            ApplyOn = "PublishedVersions"
+        };
+        var version = lambda.CurrentVersion;
+        
         CreateCfnOutput(lambda);
 
         var restApi = ApiGatewayBuilder.CreateRestApi(this, "PowerManagement-Api",
