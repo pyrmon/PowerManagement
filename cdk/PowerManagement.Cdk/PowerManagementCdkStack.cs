@@ -17,14 +17,20 @@ public sealed class PowerManagementCdkStack : Stack
 
     public PowerManagementCdkStack(Construct scope, string id, IStackProps props = null) : base(scope, id, props)
     {
-        var lambda = LambdaBuilder.CreateLambda(this, LambdaZipName, FunctionName, LambdaHandler)
-                                  .AddEnvironment("AWS_LAMBDA_INITIALIZATION_TYPE", "snap-start");
+        var lambda = LambdaBuilder.CreateLambda(this, LambdaZipName, FunctionName, LambdaHandler);
+
+        // Enable SnapStart on Published Versions
         var cfnLambda = (CfnFunction)lambda.Node.DefaultChild;
         cfnLambda.SnapStart = new CfnFunction.SnapStartProperty
         {
             ApplyOn = "PublishedVersions"
         };
-        var version = lambda.CurrentVersion;
+        
+        // Publish a new version of the Lambda function (Required for SnapStart)
+        var lambdaVersion = new Version(this, "LambdaVersion", new VersionProps
+        {
+            Lambda = lambda
+        });
         
         CreateCfnOutput(lambda);
 
