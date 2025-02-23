@@ -62,5 +62,6 @@ jobs:
           SSH_ACTION_PLAN: ${{ secrets.SSH_ACTION_PLAN }}
         run: |
           cd cdk
+          cdk bootstrap
           cdk synth --quiet
           cdk deploy --require-approval never
